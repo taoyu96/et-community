@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluemyth.community.mapper.MessagesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bluemyth.community.entity.Messages">
+        <id column="messageid" property="messageid" />
+        <result column="content" property="content" />
+        <result column="senduserid" property="senduserid" />
+        <result column="acceptuserid" property="acceptuserid" />
+        <result column="status" property="status" />
+        <result column="createtime" property="createtime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        messageid, content, senduserid, acceptuserid, status, createtime
+    </sql>
+
+</mapper>

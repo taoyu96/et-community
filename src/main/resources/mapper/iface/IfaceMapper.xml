@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluemyth.iface.mapper.IfaceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bluemyth.iface.dto.ActicleDto">
+        <id column="articleid" property="articleid"/>
+        <result column="title" property="title"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        articleid, title
+    </sql>
+
+    <!-- 查询帖子列表 -->
+    <select id="findActiclelist" resultType="com.bluemyth.iface.dto.ActicleDto">
+      select
+        t.articleid, t.userid, t.title, t.type, t.status, t.top, t.wonder, t.rewardnum, t.createtime, t.agreenum, t.disagreenum, t.readnum, t.collectnum, t.commentnum, t.transpondnum,
+        tu.nickname,tu.authinfo, tu.headpicfileid,tu.level, tu.viplevel,
+        tr.rolecode,tr.rolename
+      from t_article t
+      left join t_userinfo tu on t.userid = tu.userid
+      left join t_roleuser ru on t.userid = ru.userid
+      left join t_role tr on tr.roleid = ru.roleid
+
+    </select>
+
+    <!-- 查询热帖列表 -->
+    <select id="findActiclehot" resultType="com.bluemyth.iface.dto.ActicleDto">
+        select
+          t.articleid, t.title, t.type,t.top,t.wonder, t.agreenum ,t.disagreenum, t.readnum, t.collectnum, t.commentnum, t.transpondnum,t.createtime
+        from t_article t
+    </select>
+
+    <!-- 查询用户最近帖子列表 -->
+    <select id="findArticlerecently" resultType="com.bluemyth.iface.dto.ActicleDto">
+        select
+          t.articleid, t.title, t.type,t.top,t.wonder, t.agreenum , t.disagreenum, t.readnum, t.collectnum, t.commentnum, t.transpondnum,t.createtime
+        from t_article t where t.userid = #{userid} order by t.createtime desc limit 0,10
+    </select>
+
+    <!-- 查询用户最近回答列表 -->
+    <select id="findCommoentsrecently" resultType="com.bluemyth.iface.dto.UserCommontDto">
+        select
+          t.commentid, t.content, t.userid, t.agreenum,t.status,t.createtime,t.articleid,t1.title
+        from t_comments t
+        left join t_article t1  on t.articleid = t1.articleid
+        where t.userid = #{userid} order by t.createtime desc limit 0,10
+    </select>
+
+    <!-- 查询活跃回答用户列表 -->
+    <select id="findActivelist" resultType="com.bluemyth.iface.dto.UserActiveDto">
+        select
+          t.userid, t.nickname,t.authinfo, t.headpicfileid,t.level, t.viplevel,
+          ( select count(1) from t_comments where userid = t.userid ) as activenum
+        from t_userinfo t order by activenum desc limit 0,10
+    </select>
+
+    <!-- 查询帖子信息 -->
+    <select id="findArticleById" resultType="com.bluemyth.iface.dto.ActicleDto">
+        select
+          t.articleid, t.userid, t.title, t.type, t.content, t.status, t.top, t.wonder, t.rewardnum, t.createtime, t.agreenum, t.disagreenum, t.readnum, t.collectnum, t.commentnum, t.transpondnum,
+          tu.nickname,tu.authinfo, tu.headpicfileid,tu.level, tu.viplevel,
+          tr.rolecode,tr.rolename
+        from t_article t
+        left join t_userinfo tu on t.userid = tu.userid
+        left join t_roleuser ru on t.userid = ru.userid
+        left join t_role tr on tr.roleid = ru.roleid
+        where t.articleid = #{articleid}
+    </select>
+
+    <!--查询帖子评论-->
+    <select id="findCommentsById" resultType="com.bluemyth.iface.dto.CommentDto">
+        select
+          t.commentid, t.articleid, t.content, t.userid, t.agreenum,t.disagreenum, t.status, t.createtime,
+          tu.nickname,tu.authinfo, tu.headpicfileid,tu.level, tu.viplevel,
+          tr.rolecode,tr.rolename
+        from t_comments t
+        left join t_userinfo tu on t.userid = tu.userid
+        left join t_roleuser ru on t.userid = ru.userid
+        left join t_role tr on tr.roleid = ru.roleid
+        where t.articleid = #{articleid}
+    </select>
+
+
+    <!--查询新消息数-->
+    <select id="findMessagenum" resultType="java.lang.Integer">
+        select count(1) from t_messages where status = 0  and acceptuserid = #{userid}
+    </select>
+
+    <!--查询新消息列表-->
+    <select id="findMessagelist" resultType="com.bluemyth.iface.dto.MessagesDto">
+        select
+          t.messageid,t.content,t.senduserid,t2.nickname as senduser,t.acceptuserid,t1.nickname as acceptuser,t.status,t.createtime
+        from t_messages t
+        left join t_userinfo t1 on t1.userid = t.acceptuserid
+        left join t_userinfo t2 on t2.userid = t.senduserid
+        where t.status = 0  and t.acceptuserid = #{userid}
+    </select>
+
+    <!--查询收藏列表-->
+    <select id="findCollectlist" resultType="com.bluemyth.iface.dto.CollectDto">
+        select t.collectid,t.articleid,t1.title, t.userid,t.status,t.createtime from t_collect t
+        left join t_article t1 on t1.articleid = t.articleid
+        where t.userid= #{userid}
+    </select>
+
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluemyth.sys.mapper.DictMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bluemyth.sys.entity.Dict">
+        <id column="id" property="id" />
+        <result column="dictname" property="dictname" />
+        <result column="dicttype" property="dicttype" />
+        <result column="code" property="code" />
+        <result column="value" property="value" />
+        <result column="ordernum" property="ordernum" />
+        <result column="remark" property="remark" />
+        <result column="flag" property="flag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, dictname, dicttype, code, value, ordernum, remark, flag
+    </sql>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluemyth.community.mapper.ArticleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bluemyth.community.entity.Article">
+        <id column="articleid" property="articleid" />
+        <result column="userid" property="userid" />
+        <result column="title" property="title" />
+        <result column="type" property="type" />
+        <result column="content" property="content" />
+        <result column="status" property="status" />
+        <result column="top" property="top" />
+        <result column="wonder" property="wonder" />
+        <result column="rewardnum" property="rewardnum" />
+        <result column="createtime" property="createtime" />
+        <result column="agreenum" property="agreenum" />
+        <result column="disagreenum" property="disagreenum" />
+        <result column="readnum" property="readnum" />
+        <result column="collectnum" property="collectnum" />
+        <result column="commentnum" property="commentnum" />
+        <result column="transpondnum" property="transpondnum" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        articleid, userid,title, type, content, status,top, wonder,rewardnum, createtime, agreenum, disagreenum, readnum, collectnum, commentnum, transpondnum
+    </sql>
+
+</mapper>

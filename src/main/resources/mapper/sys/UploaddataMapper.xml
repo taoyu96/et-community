@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluemyth.sys.mapper.UploaddataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bluemyth.sys.entity.Uploaddata">
+        <id column="uploadid" property="uploadid" />
+        <result column="filename" property="filename" />
+        <result column="filepath" property="filepath" />
+        <result column="ext" property="ext" />
+        <result column="createtime" property="createtime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        uploadid, filename, filepath, ext, createtime
+    </sql>
+
+</mapper>

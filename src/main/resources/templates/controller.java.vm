@@ -1,0 +1,98 @@
+package ${package.Controller};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+import ${package.Entity}.${entity};
+import ${package.Service}.${table.serviceName};
+import com.bluemyth.framework.rest.RestStatus;
+import com.bluemyth.framework.rest.RestStatusUtil;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+
+import io.swagger.annotations.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Api(tags = {"${entity}接口"})
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+
+    private static final Logger logger = LoggerFactory.getLogger(${table.controllerName}.class);
+
+    @Autowired
+    private ${table.serviceName} thisService;
+
+    @ApiOperation("获取信息->主键")
+    @ApiImplicitParam(name = "id", value = "主键id", required = true, paramType = "path")
+    @GetMapping("{id}")
+    public RestStatus findById(@PathVariable String id) {
+        ${entity} entity = thisService.selectById(id);
+        return RestStatusUtil.success(entity);
+    }
+
+    @ApiOperation(value = "获取信息->依条件", notes = "查询条件,所有条件均以and连接(非必填)")
+    @GetMapping("/find")
+    public RestStatus find(${entity} entity) {
+        List<${entity}> list = thisService.selectList(new EntityWrapper<${entity}>(entity));
+        return RestStatusUtil.success(list);
+    }
+
+    @ApiOperation(value = "新增信息", notes = "不传主键id")
+    @PostMapping
+    public RestStatus add(${entity} entity) {
+        thisService.insert(entity);
+        return RestStatusUtil.success(entity);
+    }
+
+    @ApiOperation(value = "修改信息", notes = "需传主键id")
+    @PutMapping
+    public RestStatus update(${entity} entity) {
+        thisService.updateById(entity);
+        return RestStatusUtil.success(entity);
+    }
+
+    @ApiOperation(value = "删除信息",notes = "支持批量删除,以“,”分割")
+    @ApiImplicitParam(name = "id", value = "主键id", required = true, paramType = "query", dataType = "array" )
+    @DeleteMapping
+    public RestStatus delete(String... id) {
+        thisService.deleteBatchIds(Arrays.asList(id));
+        return RestStatusUtil.success();
+    }
+
+}
+#end

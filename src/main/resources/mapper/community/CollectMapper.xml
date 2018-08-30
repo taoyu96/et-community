@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluemyth.community.mapper.CollectMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bluemyth.community.entity.Collect">
+        <id column="collectid" property="collectid" />
+        <result column="articleid" property="articleid" />
+        <result column="userid" property="userid" />
+        <result column="status" property="status" />
+        <result column="createtime" property="createtime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        collectid, articleid, userid, status, createtime
+    </sql>
+
+</mapper>

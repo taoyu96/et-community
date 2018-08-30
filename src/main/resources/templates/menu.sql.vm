@@ -1,0 +1,17 @@
+
+set @parentId = ( select uuid());
+
+INSERT INTO t_menu (menuid,parentid, name, url, perms, type, icon, ordernum)
+    SELECT  @parentId, null , '${table.comment}', 'views/${package.ModuleName}/${table.entityPath}.html', null, '1', null, '1';
+
+
+INSERT INTO t_menu (menuid,parentid, name, url, perms, type, icon, ordernum)
+    SELECT  uuid(),@parentId , '查看', null, '${package.ModuleName}:${table.entityPath}:findById', '2', null, '2';
+INSERT INTO t_menu (menuid,parentid, name, url, perms, type, icon, ordernum)
+    SELECT  uuid(),@parentId , '查询', null, '${package.ModuleName}:${table.entityPath}:find', '2', null, '3';
+INSERT INTO t_menu (menuid,parentid, name, url, perms, type, icon, ordernum)
+    SELECT  uuid(),@parentId , '增加', null, '${package.ModuleName}:${table.entityPath}:add', '2', null, '4';
+INSERT INTO t_menu (menuid,parentid, name, url, perms, type, icon, ordernum)
+    SELECT  uuid(),@parentId , '修改', null, '${package.ModuleName}:${table.entityPath}:update', '2', null, '5';
+INSERT INTO t_menu (menuid,parentid, name, url, perms, type, icon, ordernum)
+    SELECT  uuid(),@parentId , '删除', null, '${package.ModuleName}:${table.entityPath}:delete', '2', null, '6';

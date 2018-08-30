@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluemyth.community.mapper.CommentsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bluemyth.community.entity.Comments">
+        <id column="commentid" property="commentid" />
+        <result column="articleid" property="articleid" />
+        <result column="content" property="content" />
+        <result column="userid" property="userid" />
+        <result column="agreenum" property="agreenum" />
+        <result column="disagreenum" property="disagreenum" />
+        <result column="status" property="status" />
+        <result column="createtime" property="createtime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        commentid, articleid, content, userid, agreenum, disagreenum, status, createtime
+    </sql>
+
+</mapper>

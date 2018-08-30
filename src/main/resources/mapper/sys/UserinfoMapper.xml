@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluemyth.sys.mapper.UserinfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bluemyth.sys.entity.Userinfo">
+        <id column="userid" property="userid" />
+        <result column="nickname" property="nickname" />
+        <result column="realname" property="realname" />
+        <result column="authinfo" property="authinfo" />
+        <result column="headpicfileid" property="headpicfileid" />
+        <result column="acouttotal" property="acouttotal" />
+        <result column="city" property="city" />
+        <result column="motto" property="motto" />
+        <result column="sex" property="sex" />
+        <result column="level" property="level" />
+        <result column="viplevel" property="viplevel" />
+        <result column="vipactive" property="vipactive" />
+        <result column="emailtive" property="emailtive" />
+        <result column="mobileactive" property="mobileactive" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        userid, nickname, realname, authinfo, headpicfileid, acouttotal, city, motto, sex, level, viplevel, vipactive, emailtive, mobileactive
+    </sql>
+
+</mapper>
