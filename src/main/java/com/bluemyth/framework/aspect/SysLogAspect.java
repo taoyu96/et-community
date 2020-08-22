@@ -17,18 +17,16 @@
 package com.bluemyth.framework.aspect;
 
 import com.bluemyth.framework.annotation.Log;
-import com.bluemyth.framework.utils.HttpHelper;
+import com.bluemyth.framework.utils.RequestHelper;
 import com.bluemyth.framework.utils.IpHelper;
 import com.bluemyth.sys.entity.Syslog;
 import com.bluemyth.sys.service.SyslogService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -74,7 +72,7 @@ public class SysLogAspect {
 	 * @param time 执行时间
 	 */
 	private void saveLog(ProceedingJoinPoint joinPoint, long time ) {
-		HttpServletRequest request = HttpHelper.getHttpServletRequest();
+		HttpServletRequest request = RequestHelper.getHttpServletRequest();
 
 		//解析Log注解
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();

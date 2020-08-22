@@ -17,17 +17,17 @@ public class GlobalConfigUtil {
     public static String tempPath;//temp路径
     public static String template;//模板路径
 
-    @Value("${upload.path}")
+    @Value("${upload.path:}")
     public void setUploadPath(String uploadPath){
         GlobalConfigUtil.uploadPath = uploadPath;
     }
 
-    @Value("${upload.temppath}")
+    @Value("${upload.temppath:}")
     public void setTemppath(String tempPath){
         GlobalConfigUtil.tempPath = tempPath;
     }
 
-    @Value("${upload.template}")
+    @Value("${upload.template:}")
     public void setTemplate(String template){
         GlobalConfigUtil.template = template;
     }

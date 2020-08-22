@@ -2,7 +2,7 @@ package com.bluemyth.sys.service.impl;
 
 import com.bluemyth.framework.annotation.Log;
 import com.bluemyth.framework.aspect.LogPoint;
-import com.bluemyth.framework.utils.HttpHelper;
+import com.bluemyth.framework.utils.RequestHelper;
 import com.bluemyth.framework.utils.IpHelper;
 import com.bluemyth.sys.entity.Syslog;
 import com.bluemyth.sys.mapper.SyslogMapper;
@@ -42,7 +42,7 @@ public class SyslogServiceImpl extends ServiceImpl<SyslogMapper, Syslog> impleme
      */
     @Override
     public void saveLog(ProceedingJoinPoint joinPoint, long time ) {
-        HttpServletRequest request = HttpHelper.getHttpServletRequest();
+        HttpServletRequest request = RequestHelper.getHttpServletRequest();
 
         //解析Log注解
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();

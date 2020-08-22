@@ -2,7 +2,9 @@
 
 package com.bluemyth.framework.swagger;
 
+import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -21,27 +23,31 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
+@EnableSwaggerBootstrapUI
 public class SwaggerConfigure {
 
-    @Bean
-    public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-            .apiInfo(apiInfo())
-            .select()
-            .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))  //加了ApiOperation注解的类，生成接口文档
-            //.apis(RequestHandlerSelectors.basePackage("io.renren.modules.job.controller")) //包下的类，生成接口文档
-            .paths(PathSelectors.any())
-            .build();
-    }
+    @Value("${swagger.enable:false}")
+    private boolean swaggerShow;
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-            .title("REST API")
-            .description("507社区-API文档")
-            .termsOfServiceUrl("https://www.bluemyth.club/507")
-            .contact(new Contact("xiaot", "https://www.bluemyth.club", "taoyu96@c126.com"))
-            .version("1.0")
-            .build();
+    /**
+     * 添加摘要信息(Docket)
+     */
+    @Bean
+    public Docket controllerApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .enable(swaggerShow)
+                .apiInfo(new ApiInfoBuilder()
+                        .title("服务接口文档")
+                        .description("相关接口文档说明以及测试")
+                        .contact(new Contact("xiaot", null, "taoyu96@126.com"))
+                        .version("版本号:1.0.0")
+                        .licenseUrl("/api-doc")
+                        .build()
+                )
+                .select()
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .paths(PathSelectors.any())
+                .build();
     }
 
 }
